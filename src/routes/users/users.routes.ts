@@ -12,13 +12,13 @@ usersRoutes.post(
   "",
   ensureBodyIsValidMiddleware.verify(createUsersSchema),
   ensureEmailIsNotRegistedMiddleware.verify,
-  usersControllers.create
+  usersControllers.post
 );
 
-usersRoutes.get("");
+usersRoutes.get("", usersControllers.get);
 
-usersRoutes.patch("/:id");
+usersRoutes.patch("/:id", usersControllers.update);
 
-usersRoutes.delete("/:id");
+usersRoutes.delete("/:id", usersControllers.deleteUser);
 
 export default usersRoutes;

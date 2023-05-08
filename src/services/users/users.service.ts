@@ -4,7 +4,7 @@ import { User } from "../../entities";
 import { TCreateUsersReturn, TCreateUsers } from "../../interfaces";
 import { createUsersReturnSchema } from "../../schemas";
 
-const create = async (payload: TCreateUsers): Promise<TCreateUsersReturn> => {
+const post = async (payload: TCreateUsers): Promise<TCreateUsersReturn> => {
   const usersRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const user = usersRepository.create(payload);
@@ -16,4 +16,4 @@ const create = async (payload: TCreateUsers): Promise<TCreateUsersReturn> => {
   return newUser;
 };
 
-export default { create };
+export default { post };

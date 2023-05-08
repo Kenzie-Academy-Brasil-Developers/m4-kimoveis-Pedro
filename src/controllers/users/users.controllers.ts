@@ -2,15 +2,15 @@ import { Request, Response } from "express";
 import { TCreateUsers } from "../../interfaces";
 import { usersService } from "../../services";
 
-const create = async (req: Request, res: Response): Promise<Response> => {
+const post = async (req: Request, res: Response): Promise<Response> => {
   const payload: TCreateUsers = req.body;
 
-  const newUser = await usersService.create(payload);
+  const newUser = await usersService.post(payload);
 
   return res.status(201).json(newUser);
 };
 
-export const list = async (req: Request, res: Response): Promise<Response> => {
+export const get = async (req: Request, res: Response): Promise<Response> => {
   return res.json();
 };
 
@@ -28,4 +28,4 @@ export const deleteUser = async (
   return res.status(204).send();
 };
 
-export default { create, list, update, deleteUser };
+export default { post, get, update, deleteUser };
