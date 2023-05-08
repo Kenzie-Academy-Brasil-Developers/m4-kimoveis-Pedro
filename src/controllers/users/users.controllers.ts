@@ -10,21 +10,23 @@ const post = async (req: Request, res: Response): Promise<Response> => {
   return res.status(201).json(newUser);
 };
 
-export const get = async (req: Request, res: Response): Promise<Response> => {
-  return res.json();
+const get = async (req: Request, res: Response): Promise<Response> => {
+  const users = await usersService.get();
+
+  return res.json(users);
 };
 
-export const update = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+const update = async (req: Request, res: Response): Promise<Response> => {
+  const payload: TCreateUsers = req.body;
+
+  const userId: number = Number(req.params.id);
+
+  const updateUser = usersService.patch(payload, userId);
+
   return res.status(200).json();
 };
 
-export const deleteUser = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
+const deleteUser = async (req: Request, res: Response): Promise<Response> => {
   return res.status(204).send();
 };
 

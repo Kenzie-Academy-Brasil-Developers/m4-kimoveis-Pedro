@@ -4,6 +4,14 @@ import {
   TCreateUsers,
   TCreateUsersReturn,
   TUpdateUsers,
+  TGetUsers,
 } from "./users/users.interfaces";
 
-export { TLogin, TUser, TCreateUsers, TCreateUsersReturn, TUpdateUsers };
+export {
+  TLogin,
+  TUser,
+  TCreateUsers,
+  TCreateUsersReturn,
+  TUpdateUsers,
+  TGetUsers,
+};

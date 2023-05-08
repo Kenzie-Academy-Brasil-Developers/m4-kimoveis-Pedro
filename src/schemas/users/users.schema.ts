@@ -2,18 +2,19 @@ import { z } from "zod";
 
 const usersSchema = z.object({
   id: z.number(),
+  name: z.string().max(45),
   email: z.string().email().max(45),
   admin: z.boolean().default(false),
   password: z.string().max(120),
-  createdAt: z.date(),
-  updateddAt: z.date(),
-  deletedAt: z.date().nullable(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+  deletedAt: z.string().nullable(),
 });
 
 const createUsersSchema = usersSchema.omit({
   id: true,
   createdAt: true,
-  updateddAt: true,
+  updatedAt: true,
   deletedAt: true,
 });
 

@@ -23,7 +23,7 @@ class RealEstate {
   value: number | string;
 
   @Column({ type: "integer" })
-  size: string;
+  size: number;
 
   @CreateDateColumn({ type: "date" })
   createdAt: string | Date;

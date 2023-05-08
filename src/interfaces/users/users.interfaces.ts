@@ -2,9 +2,10 @@ import { z } from "zod";
 import {
   createUsersReturnSchema,
   createUsersSchema,
-  updateUsersSchema,
+  getUsersSchema,
   usersSchema,
 } from "../../schemas";
+import { DeepPartial } from "typeorm";
 
 type TUser = z.infer<typeof usersSchema>;
 
@@ -12,6 +13,8 @@ type TCreateUsers = z.infer<typeof createUsersSchema>;
 
 type TCreateUsersReturn = z.infer<typeof createUsersReturnSchema>;
 
-type TUpdateUsers = z.infer<typeof updateUsersSchema>;
+type TGetUsers = z.infer<typeof getUsersSchema>;
 
-export { TUser, TCreateUsers, TCreateUsersReturn, TUpdateUsers };
+type TUpdateUsers = DeepPartial<TCreateUsers>;
+
+export { TUser, TCreateUsers, TCreateUsersReturn, TGetUsers, TUpdateUsers };
