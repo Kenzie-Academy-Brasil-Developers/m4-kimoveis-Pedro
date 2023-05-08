@@ -1,3 +1,9 @@
 import { TLogin } from "./login/login.interfaces";
+import {
+  TUser,
+  TCreateUsers,
+  TCreateUsersReturn,
+  TUpdateUsers,
+} from "./users/users.interfaces";
 
-export { TLogin };
+export { TLogin, TUser, TCreateUsers, TCreateUsersReturn, TUpdateUsers };

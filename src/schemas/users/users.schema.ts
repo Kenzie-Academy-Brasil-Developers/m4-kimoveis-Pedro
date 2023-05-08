@@ -21,7 +21,7 @@ const createUsersReturnSchema = usersSchema.omit({ password: true });
 
 const getUsersSchema = createUsersReturnSchema.array();
 
-const updateUsersSchema = usersSchema.omit({ id: true, admin: true });
+const updateUsersSchema = usersSchema.partial().omit({ id: true, admin: true });
 
 const usersLoginSchema = usersSchema.pick({ email: true, password: true });
 
