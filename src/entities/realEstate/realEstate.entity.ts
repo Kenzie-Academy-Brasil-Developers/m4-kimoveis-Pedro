@@ -2,13 +2,14 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   JoinColumn,
   ManyToOne,
   OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Address, Category, Schedule } from ".";
+import { Address, Category, Schedule } from "..";
 
 @Entity("real_estate")
 class RealEstate {

@@ -5,11 +5,12 @@ import { AppError } from "../../error";
 import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
+import { User } from "../../entities";
 
 const createToken = async (payload: TLogin): Promise<string> => {
-  const userRepository = (Repository<User> = AppDataSource.getRepository(User));
+  const usersRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const user: User | null = await userRepository.findOneBy({
+  const user: User | null = await usersRepository.findOneBy({
     email: payload.email,
   });
 

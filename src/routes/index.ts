@@ -1,8 +1,8 @@
-import usersRoutes from "./users.routes";
-import loginRoutes from "./login.routes";
-import categoriesRoutes from "./categories.routes";
-import realEstateRoutes from "./realEstate.routes";
-import schedulesRoutes from "./schedules.routes";
+import usersRoutes from "./users/users.routes";
+import loginRoutes from "./login/login.routes";
+import categoriesRoutes from "./categories/categories.routes";
+import realEstateRoutes from "./realEstate/realEstate.routes";
+import schedulesRoutes from "./schedules/schedules.routes";
 
 export {
   usersRoutes,

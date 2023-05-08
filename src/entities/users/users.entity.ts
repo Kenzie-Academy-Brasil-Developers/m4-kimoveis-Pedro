@@ -8,7 +8,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Schedule } from ".";
+import { Schedule } from "..";
 import { getRounds, hashSync } from "bcryptjs";
 
 @Entity("users")

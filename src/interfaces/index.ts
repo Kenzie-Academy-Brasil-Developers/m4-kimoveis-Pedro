@@ -1,3 +1,3 @@
-import { TLogin } from "./login.interfaces";
+import { TLogin } from "./login/login.interfaces";
 
 export { TLogin };

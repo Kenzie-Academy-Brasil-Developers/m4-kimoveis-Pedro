@@ -1,3 +1,3 @@
-import loginControllers from "./login.controllers";
+import loginControllers from "./login/login.controllers";
 
 export { loginControllers };

@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { RealEstate } from ".";
+import { RealEstate } from "..";
 
 @Entity("categories")
 class Category {
