@@ -15,18 +15,17 @@ const createToken = async (payload: TLogin): Promise<string> => {
   });
 
   if (!user) {
-    throw new AppError("Wrong email/password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const passwordMatch = await compare(payload.password, user.password);
 
   if (!passwordMatch) {
-    throw new AppError("Wrong email/password", 401);
+    throw new AppError("Invalid credentials", 401);
   }
 
   const token: string = jwt.sign(
     {
-      id: user.id,
       admin: user.admin,
     },
     process.env.SECRET_KEY!,

@@ -9,7 +9,7 @@ import {
 } from "../../interfaces";
 import { createUsersReturnSchema, getUsersSchema } from "../../schemas";
 
-const post = async (payload: TCreateUsers): Promise<TCreateUsersReturn> => {
+const create = async (payload: TCreateUsers): Promise<TCreateUsersReturn> => {
   const usersRepository: Repository<User> = AppDataSource.getRepository(User);
 
   const user = usersRepository.create(payload);
@@ -21,33 +21,46 @@ const post = async (payload: TCreateUsers): Promise<TCreateUsersReturn> => {
   return newUser;
 };
 
-const get = async (): Promise<TGetUsers> => {
-  const userRepository: Repository<User> = AppDataSource.getRepository(User);
+const read = async (): Promise<TGetUsers> => {
+  const usersRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const findUsers: Array<User> = await userRepository.find();
+  const findUsers: Array<User> = await usersRepository.find();
 
   const users = getUsersSchema.parse(findUsers);
 
   return users;
 };
 
-const patch = async (
+const update = async (
   payload: TUpdateUsers,
   userId: number
 ): Promise<TCreateUsersReturn> => {
-  const userRepository: Repository<User> = AppDataSource.getRepository(User);
+  const usersRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const oldPayload = await userRepository.findOneBy({
+  const oldPayload = await usersRepository.findOneBy({
     id: userId,
   });
-  const userNewData = userRepository.create({
+
+  const NewPayload = usersRepository.create({
     ...oldPayload,
     ...payload,
   });
-  await userRepository.save(userNewData);
 
-  const newUser = createUsersReturnSchema.parse(userNewData);
+  await usersRepository.save(NewPayload);
+
+  const newUser = createUsersReturnSchema.parse(NewPayload);
+
   return newUser;
 };
 
-export default { post, get, patch };
+const destroy = async (userId: number): Promise<void> => {
+  const usersRepository: Repository<User> = AppDataSource.getRepository(User);
+
+  const user = await usersRepository.findOneBy({
+    id: userId,
+  });
+
+  await usersRepository.softRemove(user!);
+};
+
+export default { create, read, update, destroy };

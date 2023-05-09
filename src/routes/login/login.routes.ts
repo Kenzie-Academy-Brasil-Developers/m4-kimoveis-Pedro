@@ -1,13 +1,13 @@
 import { Router } from "express";
 import { loginControllers } from "../../controllers";
-import { ensureBodyIsValidMiddleware } from "../../middlewares";
 import { usersLoginSchema } from "../../schemas";
+import { validateMiddlewares } from "../../middlewares";
 
 const loginRoutes: Router = Router();
 
 loginRoutes.post(
   "",
-  ensureBodyIsValidMiddleware.verify(usersLoginSchema),
+  validateMiddlewares.body(usersLoginSchema),
   loginControllers.createToken
 );
 

@@ -1,33 +1,37 @@
 import { Request, Response } from "express";
-import { TCreateUsers } from "../../interfaces";
+import { TCreateUsers, TUpdateUsers } from "../../interfaces";
 import { usersService } from "../../services";
 
-const post = async (req: Request, res: Response): Promise<Response> => {
+const create = async (req: Request, res: Response): Promise<Response> => {
   const payload: TCreateUsers = req.body;
 
-  const newUser = await usersService.post(payload);
+  const newUser = await usersService.create(payload);
 
   return res.status(201).json(newUser);
 };
 
-const get = async (req: Request, res: Response): Promise<Response> => {
-  const users = await usersService.get();
+const read = async (req: Request, res: Response): Promise<Response> => {
+  const users = await usersService.read();
 
   return res.json(users);
 };
 
 const update = async (req: Request, res: Response): Promise<Response> => {
-  const payload: TCreateUsers = req.body;
+  const payload: TUpdateUsers = req.body;
 
   const userId: number = Number(req.params.id);
 
-  const updateUser = usersService.patch(payload, userId);
+  const updatedUser = usersService.update(payload, userId);
 
-  return res.status(200).json();
+  return res.status(200).json(updatedUser);
 };
 
-const deleteUser = async (req: Request, res: Response): Promise<Response> => {
+const destroy = async (req: Request, res: Response): Promise<Response> => {
+  const userId: number = Number(req.params.id);
+
+  await usersService.destroy(userId);
+
   return res.status(204).send();
 };
 
-export default { post, get, update, deleteUser };
+export default { create, read, update, destroy };
