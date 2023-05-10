@@ -22,9 +22,9 @@ usersRoutes.get(
 usersRoutes.patch(
   "/:id",
   verifyMiddlewares.isUserExists,
-  validateMiddlewares.body(updateUsersSchema),
   validateMiddlewares.token,
   verifyMiddlewares.isAdminOrOwner,
+  validateMiddlewares.body(updateUsersSchema),
   usersControllers.update
 );
 

@@ -7,7 +7,12 @@ import {
   TGetUsers,
   TUpdateUsers,
 } from "../../interfaces";
-import { createUsersReturnSchema, getUsersSchema } from "../../schemas";
+import {
+  createUsersReturnSchema,
+  getUsersSchema,
+  updateUsersSchema,
+} from "../../schemas";
+import { AppError } from "../../error";
 
 const create = async (payload: TCreateUsers): Promise<TCreateUsersReturn> => {
   const usersRepository: Repository<User> = AppDataSource.getRepository(User);
@@ -37,20 +42,25 @@ const update = async (
 ): Promise<TCreateUsersReturn> => {
   const usersRepository: Repository<User> = AppDataSource.getRepository(User);
 
-  const oldPayload = await usersRepository.findOneBy({
+  const findUser: User | null = await usersRepository.findOneBy({
     id: userId,
   });
 
-  const NewPayload = usersRepository.create({
-    ...oldPayload,
+  if (!findUser) {
+    throw new AppError("insuficient permission", 403);
+  }
+
+  const updateUser = usersRepository.create({
+    ...findUser,
     ...payload,
   });
 
-  await usersRepository.save(NewPayload);
+  await usersRepository.save(updateUser);
+  console.log(updateUser);
 
-  const newUser = createUsersReturnSchema.parse(NewPayload);
+  const updatedUser = createUsersReturnSchema.parse(updateUser);
 
-  return newUser;
+  return updatedUser;
 };
 
 const destroy = async (userId: number): Promise<void> => {
