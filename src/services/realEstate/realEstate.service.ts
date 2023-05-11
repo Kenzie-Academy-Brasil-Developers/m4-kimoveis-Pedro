@@ -2,7 +2,7 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Address, Category, RealEstate } from "../../entities";
 import { AppError } from "../../error";
-import { TCreateRealEstate, TCreateRealEstateReturn } from "../../interfaces";
+import { TCreateRealEstate, TCreateRealEstateReturn, TGetRealEstates } from "../../interfaces";
 
 
 const create = async (payload: TCreateRealEstate): Promise<TCreateRealEstateReturn> => {
@@ -29,4 +29,17 @@ const create = async (payload: TCreateRealEstate): Promise<TCreateRealEstateRetu
     return newRealEstate
 }
 
-export default { create }
+const read = async (): Promise<TGetRealEstates> => {
+
+    const realEstatesRepository: Repository<RealEstate> = AppDataSource.getRepository(RealEstate)
+
+    const realEstates: Array<RealEstate> = await realEstatesRepository.find({
+        relations: {
+            address: true
+        }
+    })
+
+    return realEstates
+}
+
+export default { create, read }
