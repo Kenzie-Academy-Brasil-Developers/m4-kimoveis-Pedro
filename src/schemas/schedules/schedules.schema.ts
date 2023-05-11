@@ -9,3 +9,4 @@ const schedulesSchema = z.object({
 });
 
 const createSchedulesSchema = schedulesSchema.omit({ id: true, userId: true });
+

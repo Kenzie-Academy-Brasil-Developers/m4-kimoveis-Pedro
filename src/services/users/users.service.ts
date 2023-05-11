@@ -56,7 +56,6 @@ const update = async (
   });
 
   await usersRepository.save(updateUser);
-  console.log(updateUser);
 
   const updatedUser = createUsersReturnSchema.parse(updateUser);
 
