@@ -21,7 +21,7 @@ const update = async (req: Request, res: Response): Promise<Response> => {
 
   const userId: number = Number(req.params.id);
 
-  const updatedUser = usersService.update(payload, userId);
+  const updatedUser = await usersService.update(payload, userId);
 
   return res.status(200).json(updatedUser);
 };

@@ -7,6 +7,8 @@ import {
   TGetUsers,
 } from "./users/users.interfaces";
 
+import { TCategory, TCreateCategory, TListCategoriesResult } from "./categories/categories.interfaces";
+
 export {
   TLogin,
   TUser,
@@ -14,4 +16,7 @@ export {
   TCreateUsersReturn,
   TUpdateUsers,
   TGetUsers,
+  TCategory,
+  TCreateCategory,
+  TListCategoriesResult
 };

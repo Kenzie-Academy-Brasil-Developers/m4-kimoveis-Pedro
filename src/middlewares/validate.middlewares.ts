@@ -6,13 +6,13 @@ import { AppError } from "../error";
 
 const body =
   (schema: ZodTypeAny) =>
-  (req: Request, resp: Response, next: NextFunction) => {
-    const validatedData = schema.parse(req.body);
+    (req: Request, resp: Response, next: NextFunction) => {
+      const validatedData = schema.parse(req.body);
 
-    req.body = validatedData;
+      req.body = validatedData;
 
-    return next();
-  };
+      return next();
+    };
 
 const token = (req: Request, resp: Response, next: NextFunction) => {
   let token: string | undefined = req.headers.authorization;
