@@ -13,6 +13,14 @@ import {
   getCategoriesSchema,
 } from "./categories/categories.schema";
 
+import {
+  createAddressSchema,
+  createaAdressReturnSchema,
+  createRealEstateSchema,
+  createRealEstateReturnSchema,
+  getRealEstateSchema
+} from "./realEstate/realEstate.schema";
+
 export {
   usersSchema,
   createUsersSchema,
@@ -23,4 +31,9 @@ export {
   categoriesSchema,
   createCategoriesSchema,
   getCategoriesSchema,
+  createAddressSchema,
+  createaAdressReturnSchema,
+  createRealEstateSchema,
+  createRealEstateReturnSchema,
+  getRealEstateSchema
 };

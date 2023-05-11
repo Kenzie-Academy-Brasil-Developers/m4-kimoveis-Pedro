@@ -26,10 +26,10 @@ class RealEstate {
   size: number;
 
   @CreateDateColumn({ type: "date" })
-  createdAt: string | Date;
+  createdAt: string
 
   @CreateDateColumn({ type: "date" })
-  updatedAt: string | Date;
+  updatedAt: string
 
   @OneToOne(() => Address)
   @JoinColumn()

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { TLogin } from "../../interfaces";
-import loginService from "../../services/login/login.service";
+import { loginService } from "../../services";
+
 
 const createToken = async (req: Request, res: Response): Promise<Response> => {
   const payload: TLogin = req.body;

@@ -3,7 +3,7 @@ import { AppDataSource } from "../../data-source";
 import { Category } from "../../entities";
 import { AppError } from "../../error";
 import { categoriesSchema, createCategoriesSchema, getCategoriesSchema } from "../../schemas";
-import { TCategory, TCreateCategory, TListCategoriesResult } from "../../interfaces/categories/categories.interfaces";
+import { TCreateCategory, TCategory, TListCategoriesResult } from "../../interfaces";
 
 const create = async (payload: TCreateCategory): Promise<TCategory> => {
   const categoriesRepository: Repository<Category> =
@@ -17,7 +17,7 @@ const create = async (payload: TCreateCategory): Promise<TCategory> => {
     throw new AppError("Category already exists", 409);
   }
 
-  const category: TCategory = categoriesRepository.create(payload);
+  const category = categoriesRepository.create(payload);
 
   await categoriesRepository.save(category);
 
@@ -37,4 +37,27 @@ const read = async (): Promise<TListCategoriesResult> => {
   return categories;
 };
 
-export default { create, read };
+const readRealEstatesCategory = async (categoryId: number) => {
+  const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category)
+
+  const findCategory = await categoryRepository.findOneBy({
+    id: categoryId
+  })
+
+  if (!findCategory) throw new AppError('Category not found', 404)
+
+  const realEstatesCategory = await categoryRepository.findOne({
+    where: {
+      id: categoryId
+    },
+    relations: {
+      realEstate: true
+    }
+  })
+
+  return realEstatesCategory
+}
+
+
+
+export default { create, read, readRealEstatesCategory };

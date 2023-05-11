@@ -6,13 +6,13 @@ import { createCategoriesSchema } from "../../schemas";
 const categoriesRoutes: Router = Router();
 
 categoriesRoutes.post(""),
+    validateMiddlewares.body(createCategoriesSchema),
     validateMiddlewares.token,
     verifyMiddlewares.isAdminOrOwner,
-    validateMiddlewares.body(createCategoriesSchema),
-    categoriesControllers.post;
+    categoriesControllers.create;
 
-categoriesRoutes.get("", categoriesControllers.get);
+categoriesRoutes.get("", categoriesControllers.read);
 
-categoriesRoutes.get("/:id/realEstate", categoriesControllers.getRealEstates);
+categoriesRoutes.get("/:id/realEstate", categoriesControllers.readRealEstatesCategory);
 
 export default categoriesRoutes;

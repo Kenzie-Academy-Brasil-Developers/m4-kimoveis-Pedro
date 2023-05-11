@@ -3,7 +3,7 @@ import { categoriesService } from "../../services";
 import { TCreateCategory, TListCategoriesResult } from "../../interfaces";
 
 
-const post = async (req: Request, res: Response): Promise<Response> => {
+const create = async (req: Request, res: Response): Promise<Response> => {
   const payload: TCreateCategory = req.body
 
   const newCategory = await categoriesService.create(payload)
@@ -11,21 +11,25 @@ const post = async (req: Request, res: Response): Promise<Response> => {
   return res.status(201).json(newCategory);
 };
 
-const get = async (req: Request, res: Response): Promise<Response> => {
+const read = async (req: Request, res: Response): Promise<Response> => {
   const categories: TListCategoriesResult = await categoriesService.read()
 
   return res.status(200).json(categories);
 };
 
-const getRealEstates = async (
-  req: Request,
-  res: Response
-): Promise<Response> => {
-  return res.status(200).json();
+
+
+const readRealEstatesCategory = async (req: Request, res: Response): Promise<Response> => {
+
+  const categoryId = Number(req.params.id)
+
+  const realEstatesCategory = await categoriesService.readRealEstatesCategory(categoryId)
+
+  return res.status(200).json(realEstatesCategory);
 };
 
 export default {
-  post,
-  get,
-  getRealEstates,
+  create,
+  read,
+  readRealEstatesCategory,
 };

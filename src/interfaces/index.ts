@@ -7,7 +7,17 @@ import {
   TGetUsers,
 } from "./users/users.interfaces";
 
-import { TCategory, TCreateCategory, TListCategoriesResult } from "./categories/categories.interfaces";
+import {
+  TCategory,
+  TCreateCategory,
+  TListCategoriesResult
+} from "./categories/categories.interfaces";
+
+import {
+  TCreateRealEstate,
+  TCreateRealEstateReturn,
+  TGetRealEstates
+} from "./realEstate/realEstate.interfaces"
 
 export {
   TLogin,
@@ -18,5 +28,8 @@ export {
   TGetUsers,
   TCategory,
   TCreateCategory,
-  TListCategoriesResult
+  TListCategoriesResult,
+  TCreateRealEstate,
+  TCreateRealEstateReturn,
+  TGetRealEstates
 };
