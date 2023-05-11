@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { Repository } from "typeorm";
 import { AppDataSource } from "../data-source";
-import { User } from "../entities";
+import { Address, User } from "../entities";
 import { AppError } from "../error";
 
 const email = async (
@@ -61,4 +61,37 @@ const isAdminOrOwner = (
   return next();
 };
 
-export default { email, isUserExists, isAdminOrOwner };
+const addresses = async (req: Request, res: Response, next: NextFunction) => {
+  const addressesRepository: Repository<Address> = AppDataSource.getRepository(Address);
+
+  const address = {
+    street: req.body.address.street,
+    city: req.body.address.city,
+    state: req.body.address.state,
+    country: req.body.address.country,
+    postalCode: req.body.address.postalCode,
+  };
+
+  if (req.body.address.number) {
+    const findAddress = await addressesRepository.count({
+      where: {
+        ...address,
+        number: req.body.address.number,
+      },
+    });
+
+    if (findAddress) throw new AppError("Address already exists", 409)
+  } else {
+    const findAddress = await addressesRepository.count({
+      where: {
+        ...address,
+      },
+    });
+
+    if (findAddress) throw new AppError("Address already exists", 409)
+  }
+
+  return next();
+};
+
+export default { email, isUserExists, isAdminOrOwner, addresses };
