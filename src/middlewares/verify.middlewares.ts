@@ -61,8 +61,19 @@ const isAdminOrOwner = (
   return next();
 };
 
+const isAdmin = (req: Request, resp: Response, next: NextFunction): void => {
+  const { admin } = resp.locals;
+
+  if (!admin) {
+    throw new AppError("Insufficient permission", 403);
+  }
+
+  return next();
+};
+
 const addresses = async (req: Request, res: Response, next: NextFunction) => {
-  const addressesRepository: Repository<Address> = AppDataSource.getRepository(Address);
+  const addressesRepository: Repository<Address> =
+    AppDataSource.getRepository(Address);
 
   const address = {
     street: req.body.address.street,
@@ -80,7 +91,7 @@ const addresses = async (req: Request, res: Response, next: NextFunction) => {
       },
     });
 
-    if (findAddress) throw new AppError("Address already exists", 409)
+    if (findAddress) throw new AppError("Address already exists", 409);
   } else {
     const findAddress = await addressesRepository.count({
       where: {
@@ -88,10 +99,10 @@ const addresses = async (req: Request, res: Response, next: NextFunction) => {
       },
     });
 
-    if (findAddress) throw new AppError("Address already exists", 409)
+    if (findAddress) throw new AppError("Address already exists", 409);
   }
 
   return next();
 };
 
-export default { email, isUserExists, isAdminOrOwner, addresses };
+export default { email, isUserExists, isAdminOrOwner, addresses, isAdmin };

@@ -2,8 +2,16 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { Category } from "../../entities";
 import { AppError } from "../../error";
-import { categoriesSchema, createCategoriesSchema, getCategoriesSchema } from "../../schemas";
-import { TCreateCategory, TCategory, TListCategoriesResult } from "../../interfaces";
+import {
+  categoriesSchema,
+  createCategoriesSchema,
+  getCategoriesSchema,
+} from "../../schemas";
+import {
+  TCreateCategory,
+  TCategory,
+  TListCategoriesResult,
+} from "../../interfaces";
 
 const create = async (payload: TCreateCategory): Promise<TCategory> => {
   const categoriesRepository: Repository<Category> =
@@ -38,26 +46,25 @@ const read = async (): Promise<TListCategoriesResult> => {
 };
 
 const readRealEstatesCategory = async (categoryId: number) => {
-  const categoryRepository: Repository<Category> = AppDataSource.getRepository(Category)
+  const categoryRepository: Repository<Category> =
+    AppDataSource.getRepository(Category);
 
   const findCategory = await categoryRepository.findOneBy({
-    id: categoryId
-  })
+    id: categoryId,
+  });
 
-  if (!findCategory) throw new AppError('Category not found', 404)
+  if (!findCategory) throw new AppError("Category not found", 404);
 
   const realEstatesCategory = await categoryRepository.findOne({
     where: {
-      id: categoryId
+      id: categoryId,
     },
     relations: {
-      realEstate: true
-    }
-  })
+      realEstate: true,
+    },
+  });
 
-  return realEstatesCategory
-}
-
-
+  return realEstatesCategory;
+};
 
 export default { create, read, readRealEstatesCategory };

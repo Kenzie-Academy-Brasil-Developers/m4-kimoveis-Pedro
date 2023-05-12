@@ -5,12 +5,14 @@ import { createRealEstateSchema } from "../../schemas";
 
 const realEstateRoutes: Router = Router();
 
-realEstateRoutes.post('',
-    validateMiddlewares.token,
-    verifyMiddlewares.isAdminOrOwner,
-    validateMiddlewares.body(createRealEstateSchema),
-    verifyMiddlewares.addresses,
-    realEstateControllers.create)
+realEstateRoutes.post(
+  "",
+  validateMiddlewares.token,
+  verifyMiddlewares.isAdminOrOwner,
+  validateMiddlewares.body(createRealEstateSchema),
+  verifyMiddlewares.addresses,
+  realEstateControllers.create
+);
 
 realEstateRoutes.get("", realEstateControllers.read);
 

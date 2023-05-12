@@ -88,13 +88,13 @@ const create = async (payload: TCreateSchedules, userId: number) => {
   return newSchedule;
 };
 
-const read = async (realEstate: number): Promise<TCreateRealEstateReturn> => {
+const read = async (realEstateId: number): Promise<TCreateRealEstateReturn> => {
   const realEstateRepository: Repository<RealEstate> =
     AppDataSource.getRepository(RealEstate);
 
   const findRealEstate: RealEstate | null = await realEstateRepository.findOne({
     where: {
-      id: realEstate,
+      id: realEstateId,
     },
     relations: {
       address: true,

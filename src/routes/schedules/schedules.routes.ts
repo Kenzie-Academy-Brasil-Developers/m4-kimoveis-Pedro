@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { schedulesControllers } from "../../controllers";
-import { validateMiddlewares } from "../../middlewares";
+import { validateMiddlewares, verifyMiddlewares } from "../../middlewares";
 import { createSchedulesSchema } from "../../schemas";
 
 const schedulesRoutes: Router = Router();
@@ -12,6 +12,11 @@ schedulesRoutes.post(
   schedulesControllers.create
 );
 
-schedulesRoutes.get("/realEstate/:id", schedulesControllers.read);
+schedulesRoutes.get(
+  "/realEstate/:id",
+  validateMiddlewares.token,
+  verifyMiddlewares.isAdmin,
+  schedulesControllers.read
+);
 
 export default schedulesRoutes;

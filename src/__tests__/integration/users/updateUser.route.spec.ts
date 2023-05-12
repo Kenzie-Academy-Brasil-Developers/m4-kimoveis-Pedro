@@ -54,7 +54,7 @@ describe("PATCH /users", () => {
     };
 
     const { password, ...payload } = updateUserRouteMock.userComplete;
-    console.log(response.status, response.body);
+
     expect(response.status).toBe(expectResults.status);
     expect(response.body).toEqual(
       expect.objectContaining({ ...payload, id: userNotAdmin.id })
