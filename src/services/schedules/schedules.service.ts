@@ -2,11 +2,9 @@ import { Repository } from "typeorm";
 import { AppDataSource } from "../../data-source";
 import { RealEstate, Schedule, User } from "../../entities";
 import { AppError } from "../../error";
+import { TCreateRealEstateReturn, TCreateSchedules } from "../../interfaces";
 
-export const createShedulesServices = async (
-  payload: ISchedulesRequest,
-  userId: number
-) => {
+const create = async (payload: TCreateSchedules, userId: number) => {
   const schedulesRepository: Repository<Schedule> =
     AppDataSource.getRepository(Schedule);
 
@@ -66,7 +64,7 @@ export const createShedulesServices = async (
     );
   }
 
-  const hourOfTheDay = Number(payload.hourOfTheDay.split(":")[0]);
+  const hourOfTheDay = Number(payload.hour.split(":")[0]);
 
   if (hourOfTheDay < 8 || hourOfTheDay > 17) {
     throw new AppError("Invalid hour, available times are 8AM to 18PM", 400);
@@ -89,3 +87,29 @@ export const createShedulesServices = async (
 
   return newSchedule;
 };
+
+const read = async (realEstate: number): Promise<TCreateRealEstateReturn> => {
+  const realEstateRepository: Repository<RealEstate> =
+    AppDataSource.getRepository(RealEstate);
+
+  const findRealEstate: RealEstate | null = await realEstateRepository.findOne({
+    where: {
+      id: realEstate,
+    },
+    relations: {
+      address: true,
+      category: true,
+      schedules: {
+        user: true,
+      },
+    },
+  });
+
+  if (!findRealEstate) {
+    throw new AppError("RealEstate not found", 404);
+  }
+
+  return findRealEstate;
+};
+
+export default { create, read };

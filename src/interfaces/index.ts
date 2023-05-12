@@ -10,14 +10,16 @@ import {
 import {
   TCategory,
   TCreateCategory,
-  TListCategoriesResult
+  TListCategoriesResult,
 } from "./categories/categories.interfaces";
 
 import {
   TCreateRealEstate,
   TCreateRealEstateReturn,
-  TGetRealEstates
-} from "./realEstate/realEstate.interfaces"
+  TGetRealEstates,
+} from "./realEstate/realEstate.interfaces";
+
+import { TCreateSchedules } from "./schedules/schedules.interfaces";
 
 export {
   TLogin,
@@ -31,5 +33,6 @@ export {
   TListCategoriesResult,
   TCreateRealEstate,
   TCreateRealEstateReturn,
-  TGetRealEstates
+  TGetRealEstates,
+  TCreateSchedules,
 };
