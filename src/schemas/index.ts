@@ -18,8 +18,13 @@ import {
   createaAdressReturnSchema,
   createRealEstateSchema,
   createRealEstateReturnSchema,
-  getRealEstateSchema
+  getRealEstateSchema,
 } from "./realEstate/realEstate.schema";
+
+import {
+  schedulesSchema,
+  createSchedulesSchema,
+} from "./schedules/schedules.schema";
 
 export {
   usersSchema,
@@ -35,5 +40,7 @@ export {
   createaAdressReturnSchema,
   createRealEstateSchema,
   createRealEstateReturnSchema,
-  getRealEstateSchema
+  getRealEstateSchema,
+  schedulesSchema,
+  createSchedulesSchema,
 };
